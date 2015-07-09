@@ -5,7 +5,7 @@ module.exports = mongoose.model('Entry', {
 	company : {type : String, default: ''},
 	poc : {type : String, default: ''},
 	date : {type : Date, default: ''},
-	timeIn : {type : String, default: ''},
-	timeOut : {type : String, default: ''},
+	timeIn : {type : Date, default: ''},
+	timeOut : {type : Date, default: ''},
 	purpose : {type : String, default: ''}
 });
