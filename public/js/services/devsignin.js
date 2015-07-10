@@ -1,4 +1,4 @@
-angular.module('devSigninService', ['angular-cache'])
+angular.module('devSigninService', ['angular-cache', 'devSigninConfig'])
 //    .config(function (CacheFactoryProvider) {
 //        angular.extend(CacheFactoryProvider.defaults, {
 //            maxAge: 60 * 60 * 1000 * 24,    // 24 hours
@@ -13,23 +13,23 @@ angular.module('devSigninService', ['angular-cache'])
 //    })
 	// super simple service
 	// each function returns a promise object 
-	.factory('Entries', ['$http',function($http) {
+	.factory('Entries', ['$http','config',function($http, config) {
 		return {
 			get : function() {
-				return $http.get('/api/entries');
+				return $http.get(config.backend + '/api/entries');
 			},
 			create : function(entry) {
-				return $http.post('/api/entries', entry);
+				return $http.post(config.backend + '/api/entries', entry);
 			},
 			update : function(entry) {
-                return $http.put('/api/entries', entry);
+                return $http.put(config.backend + '/api/entries', entry);
             },
 			delete : function(id) {
-				return $http.delete('/api/entries/' + id);
+				return $http.delete(config.backend + '/api/entries/' + id);
 			}
 		}
 	}])
-	.service('DevCache', ['$http','CacheFactory',function ($http, CacheFactory) {
+	.service('DevCache', ['$http','CacheFactory','config',function ($http, CacheFactory, config) {
 	    if (!CacheFactory.get('devCache')) {
 	        // or CacheFactory('bookCache', { ... });
 	        CacheFactory.createCache('devCache', {
@@ -48,14 +48,7 @@ angular.module('devSigninService', ['angular-cache'])
 
 	    return {
 	        getDevTechies: function () {
-	            return $http.get('/api/devTechies', { cache: techiesCache });
+	            return $http.get(config.backend + '/api/devTechies', { cache: techiesCache });
 	        }
 	    };
 	}]);
-//	.factory('Techies', ['$http',function($http) {
-//        return {
-//            get : function() {
-//                return $http.get('/api/devTechies');
-//            }
-//        }
-//    }]);
