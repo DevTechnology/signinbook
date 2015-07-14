@@ -1,4 +1,4 @@
 module.exports = {
 	// the database url to connect
-	url : 'mongodb://localhost:27017/esignin'
+	url : 'mongodb://127.0.0.1:27017/esignin'
 }

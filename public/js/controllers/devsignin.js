@@ -100,15 +100,15 @@ angular.module('devSigninController', ['ui.bootstrap'])
             isopen: false
         };
 
-              $scope.toggled = function(open) {
-                $log.log('Dropdown is now: ', open);
-              };
+        $scope.toggled = function(open) {
+            $log.log('Dropdown is now: ', open);
+        };
 
-              $scope.toggleDropdown = function($event) {
-                $event.preventDefault();
-                $event.stopPropagation();
-                $scope.dropdown.isopen = !$scope.dropdown.isopen;
-              };
+        $scope.toggleDropdown = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.dropdown.isopen = !$scope.dropdown.isopen;
+        };
 
 	    $scope.cancel = function () {
 	      $modalInstance.dismiss('cancel');

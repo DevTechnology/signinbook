@@ -43,7 +43,8 @@ module.exports = function(app) {
 	    
 		// create a entry, information comes from AJAX request from Angular
 		Entry.create({
-			name : req.body.name,
+			fname : req.body.fname,
+			lname : req.body.lname,
 			company : req.body.company,
 			poc : req.body.poc,
 			date : req.body.date,

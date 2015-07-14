@@ -1,4 +1,4 @@
-angular.module('devSigninService', ['angular-cache', 'devSigninConfig'])
+angular.module('devSigninService', ['angular-cache','devSigninConfig'])
 //    .config(function (CacheFactoryProvider) {
 //        angular.extend(CacheFactoryProvider.defaults, {
 //            maxAge: 60 * 60 * 1000 * 24,    // 24 hours

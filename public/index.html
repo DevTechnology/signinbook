@@ -40,10 +40,11 @@ body {
 <!-- SPELLS -->
 <script
 	src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.min.js"></script>
-<!-- load config -->
-<script src="js/config/config.js"></script>
+
 <!-- load angular -->
 <script src="js/controllers/devsignin.js"></script>
+<!-- load config -->
+<script src="js/config/config.js"></script>
 <!-- load up our controller -->
 <script src="js/services/devsignin.js"></script>
 <!-- load our signin service -->
@@ -64,9 +65,12 @@ body {
 
 		<form>
   			<div class="form-group">
-    			<label for="name">Name:</label>
-    			<input type="text" class="form-control" ng-model="user.name" class="form-control" 
-					typeahead="entry.name for entry in entries | filter:$viewValue | limitTo:8">
+    			<label for="fname">First Name:</label>
+				<input type="text" class="form-control" ng-model="user.fname" class="form-control">
+  			</div>
+			<div class="form-group">
+    			<label for="lname">Last Name:</label>
+				<input type="text" class="form-control" ng-model="user.lname" class="form-control">
   			</div>
   			<div class="form-group">
     			<label for="company">Company:</label>
@@ -112,24 +116,24 @@ body {
 					<thead>
 						<tr>
 							<th class="text-center">Name</th>
-							<th class="text-center">Company</th>
+<!-- 							<th class="text-center">Company</th> -->
 							<th class="text-center">Dev POC</th>
 							<th class="text-center">Date</th>
 							<th class="text-center">Time In</th>
 							<th class="text-center">Time Out</th>
-							<th class="text-center col-md-3">Purpose of Visit</th>
+<!-- 							<th class="text-center col-md-3">Purpose of Visit</th> -->
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="entry in entries">
-							<td class="text-center">{{entry.name}}</td>
-							<td class="text-center">{{entry.company}}</td>
+							<td class="text-center">{{entry.fname}} {{entry.lname.substring(0,1)}}.</td>
+<!-- 							<td class="text-center">{{entry.company}}</td> -->
 							<td class="text-center">{{entry.poc}}</td>
 							<td class="text-center">{{entry.date | date:'yyyy-MM-dd'}}</td>
 							<td class="text-center">{{entry.timeIn | date:'HH:mm:ss'}}</td>
 							<td class="text-center" ng-show="entry.timeOut">{{entry.timeOut | date:'HH:mm:ss'}}</td>
 							<td class="text-center" ng-show="!entry.timeOut" class="text-center"><button class="btn btn-success btn-xs" ng-click="signout(entry)">Sign Out</button></td>
-							<td class="text-center col-md-3">{{entry.purpose}}</td>
+<!-- 							<td class="text-center col-md-3">{{entry.purpose}}</td> -->
 						</tr>
 					</tbody>
 				</table>
