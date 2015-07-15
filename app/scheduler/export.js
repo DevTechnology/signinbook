@@ -14,14 +14,52 @@ rule.dayOfWeek = [0, new schedule.Range(1, 5)];
 rule.hour = 23;
 rule.minute = 59;
 
-var j = schedule.scheduleJob(rule, function(){
-    getDailyNotSignedOutEntries();
+var j = schedule.scheduleJob(rule, function() {
+    if(config.auto_signout_all_at_midnight) {
+        signoutAllForToday(function(err) {
+            if(err)
+                console.log("error when the setting timeout for all record is attempted.");
+            getDailyReport();
+        });
+    } else {
+        getDailyReport();
+    }
 });
 
-// Testing...
-//getDailyNotSignedOutEntries();
+//Test
+signoutAllForToday(function(err) {
+    if(err)
+        console.log("error when the setting timeout for all record is attempted.");
+    getDailyReport();
+});
 
-function getDailyNotSignedOutEntries() {
+function signoutAllForToday(callback) {
+    var today = new Date();
+    var tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
+    
+    Entry.find({ date : { $gt : new Date(today.getFullYear(), today.getMonth(), today.getDate()), 
+            $lt : new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate()) },
+          timeOut : {$exists : false} }).exec( function(err, entry) {
+        console.log(entry);
+    });
+    
+    Entry.update(
+        { date : { $gt : new Date(today.getFullYear(), today.getMonth(), today.getDate()), 
+            $lt : new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate()) },
+          timeOut : {$exists : false} }, 
+        { $set: 
+            {
+                timeOut : today
+            }
+        }, 
+        {upsert: false, multi: true},
+        function (err, entry) {
+            console.log(entry);
+            return callback(err);
+        });
+}
+
+function getDailyReport() {
     var today = new Date();
     var tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
     
@@ -32,8 +70,6 @@ function getDailyNotSignedOutEntries() {
         if (err) {
             console.log("error when the export is attempted.");
         } else {
-            
-            console.log("entries: " + typeof entries + "  \n" + entries);
             var flattenedData = [];
             
             for(var i=0; i<entries.length; i++) {
@@ -43,21 +79,22 @@ function getDailyNotSignedOutEntries() {
                 obj.lname = objToAdd.lname;
                 obj.company = objToAdd.company;
                 obj.poc = objToAdd.poc;
-                obj.date = objToAdd.date;
+                obj.date = objToAdd.date.toISOString().substring(0,10);
                 obj.timeIn = objToAdd.timeIn;
+                obj.timeOut = objToAdd.timeOut;
                 obj.purpose = objToAdd.purpose;
                 flattenedData.push(obj);
             }
             
-            console.log(flattenedData);
-            
-            var fields = ['fname', 'lname', 'company', 'poc', 'date', 'timeIn', 'purpose'];
+            var fields = ['fname', 'lname', 'company', 'poc', 'date', 'timeIn', 'timeOut', 'purpose'];
             json2csv({ data: flattenedData, fields: fields }, function(err, csv) {
                 if (err) console.log(err);
-                var tmpFilename = today.getFullYear() + "/" + (today.getMonth() + 1) + "/" + today.getDate() + '/notSignedOutList.csv';
+                var tmpFilename = today.getFullYear() + "/" + (today.getMonth() + 1) + "/" + today.getDate() + '/signin_logbook.csv';
                 var s3bucket = new AWS.S3({params: {Bucket: config.aws_s3_bucket_name, Key: tmpFilename}});
                 
-                s3bucket.upload({Body: csv}, function() {
+                s3bucket.upload({Body: csv}, function(err) {
+                    if(err) 
+                        console.log(err);
                     console.log("Successfully uploaded data to " + config.aws_s3_bucket_name + "/" + tmpFilename);
                 });
                 

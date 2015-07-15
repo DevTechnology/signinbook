@@ -1,0 +1,12 @@
+<div class="modal-header">
+    <h3 class="modal-title">Please Confirm Sign Out</h3>
+</div>
+<div class="modal-body">
+	<div>
+	    <h6>Are you sure you want to sign out as <strong>{{signingoutUser.fname}} {{signingoutUser.lname.substring(0,1)}}.</strong> ?</h6>
+	    <div class="form-controls-alert text-right">
+	        <a href="" class="btn btn-danger" ng-click="cancel()">No</a>
+	        <a href="" class="btn btn-success" ng-click="signout(signingoutUser)">Yes</a>
+	    </div>
+	</div>
+</div>

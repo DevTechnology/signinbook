@@ -45,10 +45,14 @@ angular.module('devSigninService', ['angular-cache','devSigninConfig'])
 	    }
 
 	    var techiesCache = CacheFactory.get('techiesCache');
+	    var povCache = CacheFactory.get('povCache');
 
 	    return {
 	        getDevTechies: function () {
 	            return $http.get(config.backend + '/api/devTechies', { cache: techiesCache });
-	        }
+	        }, 
+	        getPovs: function () {
+                return $http.get(config.backend + '/api/povs', { cache: povCache });
+            }
 	    };
 	}]);

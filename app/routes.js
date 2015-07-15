@@ -24,6 +24,16 @@ function getDevTechies(res){
     });
 };
 
+function getPovs(res){
+    fs.readFile('./config/purposeOfVisit', 'utf8', function (err, data) {
+        console.log(data);
+        if (err) {
+            res.send(err)
+        }
+        res.json(data);
+    });
+};
+
 module.exports = function(app) {
 
 	// api ---------------------------------------------------------------------
@@ -36,6 +46,11 @@ module.exports = function(app) {
 	app.get('/api/devTechies', function(req, res) {
         // use mongoose to get all entries in the database
 	    getDevTechies(res);
+    });
+	
+	app.get('/api/povs', function(req, res) {
+        // use mongoose to get all entries in the database
+        getPovs(res);
     });
 
 	// create entries and send back all entries after creation

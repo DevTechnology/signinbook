@@ -1,0 +1,57 @@
+<div class="modal-header">
+    <h3 class="modal-title">Please Sign In</h3>
+</div>
+<div class="modal-body">
+
+<form>
+    <div class="form-group">
+        <label for="fname">First Name:</label>
+        <input type="text" class="form-control" ng-model="user.fname" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="lname">Last Name:</label>
+        <input type="text" class="form-control" ng-model="user.lname" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="company">Company:</label>
+        <input type="text" class="form-control" ng-model="user.company" required>
+    </div>
+    <div class="form-group">
+        <label for="poc">Dev POC: {{user.poc}}</label>
+        <div>
+	        <input type="text" class="form-control" ng-model="user.poc" ng-show="isPocOther" 
+	        	placeholder={{placeholderText}} ng-focus="hidePlaceholderText()" ng-blur="resetPocBtn()">
+	        <div class="btn-group" dropdown is-open="dropdown.isopen">
+	            <ul class="dropdown-menu" role="menu">
+	                <li ng-repeat="techy in devTechies"><a ng-click="setCurrentPoc(techy)">{{techy}}</a></li>
+	            </ul>
+	        </div>
+	        <button type="button" class="btn btn-success" ng-model="user.poc" ng-click="toggleDropdown($event)" ng-show="!isPocOther">
+	        	Select POC<span class="caret"></span>
+	        </button>
+	        <button type="button" class="btn btn-primary" ng-click="togglePocOther()" ng-show="!isPocOther">Other</button>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="purpose">Purpose of Visit:  {{user.purpose}}</label>
+        <div>
+	        <input type="text" class="form-control" ng-model="user.purpose" ng-show="isPurposeOther" 
+	        	placeholder={{purposePlaceholderText}} ng-focus="hidePurposePlaceholderText()" ng-blur="resetPurposeBtn()">
+	        <div class="btn-group" dropdown is-open="purposeDropdown.isopen">
+	            <ul class="dropdown-menu" role="menu">
+	                <li ng-repeat="pov in povs"><a ng-click="setCurrentPov(pov)">{{pov}}</a></li>
+	            </ul>
+	        </div>
+	        <button type="button" class="btn btn-success" ng-model="user.purpose" ng-click="purposeToggleDropdown($event)" ng-show="!isPurposeOther">
+	        	Select Purpose of Visit<span class="caret"></span>
+	        </button>
+	        <button type="button" class="btn btn-primary" ng-click="togglePurposeOther()" ng-show="!isPurposeOther">Other</button>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="createEntry()">OK</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</form>
+</div>
