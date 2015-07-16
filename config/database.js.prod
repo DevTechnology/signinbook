@@ -1,4 +1,0 @@
-module.exports = {
-	// the database url to connect
-	url : 'mongodb://prod_mongodb_host:27017/esignin'
-}
