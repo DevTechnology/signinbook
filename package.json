@@ -4,6 +4,10 @@
   "description": "Simple sign in application for Dev Technology.",
   "main": "server.js",
   "author": "Sean Moon",
+  "repository": {
+	"type": "git",
+	"url": "git://github.com/DevTechnology/signinbook.git"
+  },
   "dependencies": {
     "async": "~1.3.0",
     "body-parser": "~1.4.3",

@@ -4,7 +4,6 @@ MAINTAINER Sean Moon <sean.moon@devtechnology.com>
 COPY package.json /opt/esigninApi/
 COPY app /opt/esigninApi/app/
 COPY config /opt/esigninApi/config/
-RUN cp /opt/esigninApi/config/database.js.dev /opt/esigninApi/config/database.js
 COPY server.js /opt/esigninApi/
 
 WORKDIR /opt/esigninApi
