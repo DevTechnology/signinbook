@@ -58,6 +58,7 @@ module.exports = function(app) {
 
 	// create entries and send back all entries after creation
 	app.post('/api/entries', function(req, res) {
+	    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
 	    res.header("Access-Control-Allow-Origin", "*");
 		// create a entry, information comes from AJAX request from Angular
 		Entry.create({
