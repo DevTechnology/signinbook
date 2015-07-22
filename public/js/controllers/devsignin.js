@@ -39,7 +39,7 @@ angular.module('devSigninController', ['ui.bootstrap', 'devSigninConfig'])
 		$scope.signin = function () {
 		    var modalInstance = $modal.open({
 		        animation: true,
-		        templateUrl: '../../templates/signinPopupTemplate.html',
+		        templateUrl: 'templates/signinPopupTemplate.html',
 		        controller: 'signinCtrl',
 		        scope: $scope
 		    });
@@ -54,7 +54,7 @@ angular.module('devSigninController', ['ui.bootstrap', 'devSigninConfig'])
 		$scope.showSignoutPopup = function(entry) {
 		    var modalInstance = $modal.open({
 		        animation: true,
-		        templateUrl: '../../templates/signoutPopupTemplate.html',
+		        templateUrl: 'templates/signoutPopupTemplate.html',
 		        controller: 'signoutCtrl',
 		        resolve: {
 		            signingoutUser: function () {

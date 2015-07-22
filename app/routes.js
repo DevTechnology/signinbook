@@ -6,7 +6,6 @@ var async = require('async');
 
 function getEntries(res){
     Entry.find({}).sort('-date').exec(function(err, entries) {
-        res.header("Access-Control-Allow-Origin", "*");
 		// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 		if (err)
 			res.send(err)
@@ -16,33 +15,23 @@ function getEntries(res){
 };
 
 function getDevTechies(res){
-    var data = fs.readFileSync('/opt/esigninApi/config/devTechies', 'utf8');
-    res.header("Access-Control-Allow-Origin", "*");
-    res.json(data);
-    
-//    fs.readFile('./config/devTechies', 'utf8', function (err, data) {
-//        console.log(data);
-//        res.header("Access-Control-Allow-Origin", "*");
-//        if (err) {
-//            res.send(err)
-//        }
-//        res.json(data);
-//    });
+    fs.readFile('/opt/esigninApi/config/devTechies', 'utf8', function (err, data) {
+        console.log(data);
+        if (err) {
+            res.send(err)
+        }
+        res.json(data);
+    });
 };
 
 function getPovs(res){
-    var data = fs.readFileSync('/opt/esigninApi/config/purposeOfVisit', 'utf8');
-    res.header("Access-Control-Allow-Origin", "*");
-    res.json(data);
-    
-//    fs.readFile('./config/purposeOfVisit', 'utf8', function (err, data) {
-//        console.log(data);
-//        res.header("Access-Control-Allow-Origin", "*");
-//        if (err) {
-//            res.send(err)
-//        }
-//        res.json(data);
-//    });
+    fs.readFile('/opt/esigninApi/config/purposeOfVisit', 'utf8', function (err, data) {
+        console.log(data);
+        if (err) {
+            res.send(err)
+        }
+        res.json(data);
+    });
 };
 
 module.exports = function(app) {
@@ -50,23 +39,26 @@ module.exports = function(app) {
 	// api ---------------------------------------------------------------------
 	// get all entries
 	app.get('/api/entries', function(req, res) {
+	    res.header("Access-Control-Allow-Origin", "*");
 		// use mongoose to get all entries in the database
 		getEntries(res);
 	});
 	
 	app.get('/api/devTechies', function(req, res) {
+	    res.header("Access-Control-Allow-Origin", "*");
         // use mongoose to get all entries in the database
 	    getDevTechies(res);
     });
 	
 	app.get('/api/povs', function(req, res) {
+	    res.header("Access-Control-Allow-Origin", "*");
         // use mongoose to get all entries in the database
         getPovs(res);
     });
 
 	// create entries and send back all entries after creation
 	app.post('/api/entries', function(req, res) {
-	    
+	    res.header("Access-Control-Allow-Origin", "*");
 		// create a entry, information comes from AJAX request from Angular
 		Entry.create({
 			fname : req.body.fname,
@@ -79,7 +71,6 @@ module.exports = function(app) {
 			purpose : req.body.purpose,
 			done : false
 		}, function(err, entry) {
-		    res.header("Access-Control-Allow-Origin", "*");
 			if (err)
 				res.send(err);
 			// get and return all the entries after you create another
@@ -90,6 +81,7 @@ module.exports = function(app) {
 	
 	// update entries and send back all entries after creation
     app.put('/api/entries', function(req, res) {
+        res.header("Access-Control-Allow-Origin", "*");
         console.log(req.body);
         console.log(ObjectID(req.body._id));
         Entry.update(
@@ -101,7 +93,6 @@ module.exports = function(app) {
             }, 
             {upsert: false},
             function (err, entry) {
-                res.header("Access-Control-Allow-Origin", "*");
                 if (err)
                     res.send(err);
                 getEntries(res);
@@ -110,13 +101,12 @@ module.exports = function(app) {
 
 	// delete a entries
 	app.delete('/api/entries/:entries_id', function(req, res) {
+	    res.header("Access-Control-Allow-Origin", "*");
 		Entry.remove({
 			_id : req.params.entry_id
 		}, function(err, entries) {
-		    res.header("Access-Control-Allow-Origin", "*");
 			if (err)
 				res.send(err);
-
 			getEntries(res);
 		});
 	});
