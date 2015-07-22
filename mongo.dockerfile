@@ -7,4 +7,5 @@ RUN yum -y install mongodb-server; yum clean all
 RUN mkdir -p /data/db
 
 EXPOSE 27017
-ENTRYPOINT ["/usr/bin/mongod"]
+
+ENTRYPOINT ["/usr/bin/mongod","--sslMode","requireSSL","--sslPEMKeyFile","/certs/mongodb.pem","--dbpath","/data/db"]

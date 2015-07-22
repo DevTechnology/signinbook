@@ -25,7 +25,7 @@ if [ -z "$1" ]
 		port=27017
 		
 		#Execute the build
-	  	sudo docker run -p $port:$port -d $tag 
+	  	sudo docker run -p $port:$port -v /etc/certs:/certs -d $tag 
   else
   	echo "$1 is not a valid paramater, only server or mongo supported."
   	exit

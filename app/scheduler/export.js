@@ -27,11 +27,11 @@ var j = schedule.scheduleJob(rule, function() {
 });
 
 //Test
-signoutAllForToday(function(err) {
-    if(err)
-        console.log("error when the setting timeout for all record is attempted.");
-    getDailyReport();
-});
+//signoutAllForToday(function(err) {
+//    if(err)
+//        console.log("error when the setting timeout for all record is attempted.");
+//    getDailyReport();
+//});
 
 function signoutAllForToday(callback) {
     var today = new Date();

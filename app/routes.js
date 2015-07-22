@@ -10,6 +10,7 @@ function getEntries(res){
 		if (err)
 			res.send(err)
 
+		res.header("Access-Control-Allow-Origin", "*");
 		res.json(entries); // return all entries in JSON format
 	});
 };
@@ -20,6 +21,7 @@ function getDevTechies(res){
         if (err) {
             res.send(err)
         }
+        res.header("Access-Control-Allow-Origin", "*");
         res.json(data);
     });
 };
@@ -30,6 +32,7 @@ function getPovs(res){
         if (err) {
             res.send(err)
         }
+        res.header("Access-Control-Allow-Origin", "*");
         res.json(data);
     });
 };
@@ -109,6 +112,7 @@ module.exports = function(app) {
 
 	// application -------------------------------------------------------------
 	app.get('*', function(req, res) {
+	    res.header("Access-Control-Allow-Origin", "*");
 		res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
 	});
 };
