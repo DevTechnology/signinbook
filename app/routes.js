@@ -6,11 +6,11 @@ var async = require('async');
 
 function getEntries(res){
     Entry.find({}).sort('-date').exec(function(err, entries) {
+        res.header("Access-Control-Allow-Origin", "*");
 		// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 		if (err)
 			res.send(err)
 
-		res.header("Access-Control-Allow-Origin", "*");
 		res.json(entries); // return all entries in JSON format
 	});
 };
@@ -18,10 +18,10 @@ function getEntries(res){
 function getDevTechies(res){
     fs.readFile('./config/devTechies', 'utf8', function (err, data) {
         console.log(data);
+        res.header("Access-Control-Allow-Origin", "*");
         if (err) {
             res.send(err)
         }
-        res.header("Access-Control-Allow-Origin", "*");
         res.json(data);
     });
 };
@@ -29,10 +29,10 @@ function getDevTechies(res){
 function getPovs(res){
     fs.readFile('./config/purposeOfVisit', 'utf8', function (err, data) {
         console.log(data);
+        res.header("Access-Control-Allow-Origin", "*");
         if (err) {
             res.send(err)
         }
-        res.header("Access-Control-Allow-Origin", "*");
         res.json(data);
     });
 };
@@ -71,6 +71,7 @@ module.exports = function(app) {
 			purpose : req.body.purpose,
 			done : false
 		}, function(err, entry) {
+		    res.header("Access-Control-Allow-Origin", "*");
 			if (err)
 				res.send(err);
 			// get and return all the entries after you create another
@@ -92,6 +93,7 @@ module.exports = function(app) {
             }, 
             {upsert: false},
             function (err, entry) {
+                res.header("Access-Control-Allow-Origin", "*");
                 if (err)
                     res.send(err);
                 getEntries(res);
@@ -103,6 +105,7 @@ module.exports = function(app) {
 		Entry.remove({
 			_id : req.params.entry_id
 		}, function(err, entries) {
+		    res.header("Access-Control-Allow-Origin", "*");
 			if (err)
 				res.send(err);
 
