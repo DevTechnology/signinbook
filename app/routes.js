@@ -39,27 +39,22 @@ module.exports = function(app) {
 	// api ---------------------------------------------------------------------
 	// get all entries
 	app.get('/api/entries', function(req, res) {
-	    res.header("Access-Control-Allow-Origin", "*");
 		// use mongoose to get all entries in the database
 		getEntries(res);
 	});
 	
 	app.get('/api/devTechies', function(req, res) {
-	    res.header("Access-Control-Allow-Origin", "*");
         // use mongoose to get all entries in the database
 	    getDevTechies(res);
     });
 	
 	app.get('/api/povs', function(req, res) {
-	    res.header("Access-Control-Allow-Origin", "*");
         // use mongoose to get all entries in the database
         getPovs(res);
     });
 
 	// create entries and send back all entries after creation
 	app.post('/api/entries', function(req, res) {
-	    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-	    res.header("Access-Control-Allow-Origin", "*");
 		// create a entry, information comes from AJAX request from Angular
 		Entry.create({
 			fname : req.body.fname,
@@ -82,7 +77,6 @@ module.exports = function(app) {
 	
 	// update entries and send back all entries after creation
     app.put('/api/entries', function(req, res) {
-        res.header("Access-Control-Allow-Origin", "*");
         console.log(req.body);
         console.log(ObjectID(req.body._id));
         Entry.update(
@@ -102,7 +96,6 @@ module.exports = function(app) {
 
 	// delete a entries
 	app.delete('/api/entries/:entries_id', function(req, res) {
-	    res.header("Access-Control-Allow-Origin", "*");
 		Entry.remove({
 			_id : req.params.entry_id
 		}, function(err, entries) {
@@ -114,7 +107,6 @@ module.exports = function(app) {
 
 	// application -------------------------------------------------------------
 	app.get('*', function(req, res) {
-	    res.header("Access-Control-Allow-Origin", "*");
 		res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
 	});
 };
