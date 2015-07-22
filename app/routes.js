@@ -16,7 +16,7 @@ function getEntries(res){
 };
 
 function getDevTechies(res){
-    fs.readFile('./config/devTechies', 'utf8', function (err, data) {
+    fs.readFile('../config/devTechies', 'utf8', function (err, data) {
         console.log(data);
         res.header("Access-Control-Allow-Origin", "*");
         if (err) {
@@ -27,7 +27,7 @@ function getDevTechies(res){
 };
 
 function getPovs(res){
-    fs.readFile('./config/purposeOfVisit', 'utf8', function (err, data) {
+    fs.readFile('../config/purposeOfVisit', 'utf8', function (err, data) {
         console.log(data);
         res.header("Access-Control-Allow-Origin", "*");
         if (err) {
