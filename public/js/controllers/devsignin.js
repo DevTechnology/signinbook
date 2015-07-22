@@ -13,20 +13,26 @@ angular.module('devSigninController', ['ui.bootstrap', 'devSigninConfig'])
 		// use the service to get all the entries
 		Entries.get()
 			.success(function(data) {
-				$scope.entries = data;
+			    if(data) {
+    				$scope.entries = data;
+			    }
 				$scope.loading = false;
 				console.log($scope.entries);
 			});
 		
 		DevCache.getDevTechies()
     		.success(function(data) {
-                $scope.devTechies = data.split(":");
+    		    if(data) {
+                    $scope.devTechies = data.split(":");
+    		    }
                 $scope.loading = false;
             });
 		
 		DevCache.getPovs()
             .success(function(data) {
-                $scope.povs = data.split(":");
+                if(data) {
+                    $scope.povs = data.split(":");
+                }
                 $scope.loading = false;
             });
 

@@ -16,25 +16,33 @@ function getEntries(res){
 };
 
 function getDevTechies(res){
-    fs.readFile('config/devTechies', 'utf8', function (err, data) {
-        console.log(data);
-        res.header("Access-Control-Allow-Origin", "*");
-        if (err) {
-            res.send(err)
-        }
-        res.json(data);
-    });
+    var data = fs.readFileSync('./config/devTechies', 'utf8');
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(data);
+    
+//    fs.readFile('./config/devTechies', 'utf8', function (err, data) {
+//        console.log(data);
+//        res.header("Access-Control-Allow-Origin", "*");
+//        if (err) {
+//            res.send(err)
+//        }
+//        res.json(data);
+//    });
 };
 
 function getPovs(res){
-    fs.readFile('config/purposeOfVisit', 'utf8', function (err, data) {
-        console.log(data);
-        res.header("Access-Control-Allow-Origin", "*");
-        if (err) {
-            res.send(err)
-        }
-        res.json(data);
-    });
+    var data = fs.readFileSync('./config/purposeOfVisit', 'utf8');
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(data);
+    
+//    fs.readFile('./config/purposeOfVisit', 'utf8', function (err, data) {
+//        console.log(data);
+//        res.header("Access-Control-Allow-Origin", "*");
+//        if (err) {
+//            res.send(err)
+//        }
+//        res.json(data);
+//    });
 };
 
 module.exports = function(app) {
