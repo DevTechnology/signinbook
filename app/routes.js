@@ -16,7 +16,7 @@ function getEntries(res){
 };
 
 function getDevTechies(res){
-    var data = fs.readFileSync('../config/devTechies', 'utf8');
+    var data = fs.readFileSync('/opt/esigninApi/config/devTechies', 'utf8');
     res.header("Access-Control-Allow-Origin", "*");
     res.json(data);
     
@@ -31,7 +31,7 @@ function getDevTechies(res){
 };
 
 function getPovs(res){
-    var data = fs.readFileSync('../config/purposeOfVisit', 'utf8');
+    var data = fs.readFileSync('/opt/esigninApi/config/purposeOfVisit', 'utf8');
     res.header("Access-Control-Allow-Origin", "*");
     res.json(data);
     
