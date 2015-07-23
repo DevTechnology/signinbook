@@ -19,6 +19,7 @@ Dev Technology eSignin README File
     Save all env variables(all aws keys and key pair for mongo db encryption) to a file and pass it when the run script is invoked.
   
     Follow Amazon AWS instruction for the S3 keys. 
+    
     Encryption keys can be generated using the following command.
   
     	openssl rand -base64 32; openssl rand -base64 64;
@@ -37,6 +38,7 @@ Dev Technology eSignin README File
   1. server
   
     Modify config/config.js.prod to replace 'prod_mongo_ip' with actual production mongo server ip address.
+    
     sudo runtime/script/build_docker_image.sh server prod/dev
   	
   2. mongo
@@ -46,7 +48,9 @@ Dev Technology eSignin README File
   3. client
   
     Modify public/js/config/config.js.prod to replace 'prod_api_server_ip' with actual production node.js server ip address.
+    
     Then, copy config.js.prod to config.js
+    
     Follow instructions on http://www.nickdobie.com/blog/hosting-angularjs-with-amazon-s3/
   	
 ## Run
