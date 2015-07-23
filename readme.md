@@ -35,25 +35,28 @@ Dev Technology eSignin README File
   The installation consists of 3 sub installations.
   
   1. server
-  	Modify config/config.js.prod to replace 'prod_mongo_ip' with actual production mongo server ip address.
-  	
-  	sudo runtime/script/build_docker_image.sh server prod/dev
+  
+    Modify config/config.js.prod to replace 'prod_mongo_ip' with actual production mongo server ip address.
+    sudo runtime/script/build_docker_image.sh server prod/dev
   	
   2. mongo
-  	sudo runtime/script/build_docker_image.sh mongo 
+  	
+    sudo runtime/script/build_docker_image.sh mongo 
   	
   3. client
+  
     Modify public/js/config/config.js.prod to replace 'prod_api_server_ip' with actual production node.js server ip address.
     Then, copy config.js.prod to config.js
-        
-  	Follow instructions on http://www.nickdobie.com/blog/hosting-angularjs-with-amazon-s3/
+    Follow instructions on http://www.nickdobie.com/blog/hosting-angularjs-with-amazon-s3/
   	
 ## Run
   1. server
-  	sudo runtime/script/run_docker_image.sh server <env variable file path>
+  	
+    sudo runtime/script/run_docker_image.sh server <env variable file path>
   	
   2. mongo
-  	sudo runtime/script/run_docker_image.sh mongo
+
+    sudo runtime/script/run_docker_image.sh mongo
   	
 ## Todo
 
