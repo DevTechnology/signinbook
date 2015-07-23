@@ -9,6 +9,7 @@ angular.module('devSigninController')
         $scope.isPurposeOther = false;
         
         $scope.placeholderText = placeholderText;
+        $scope.purposePlaceholderText = purposePlaceholderText;
         
         // CREATE ==================================================================
         // when submitting the add form, send the text to the node API
@@ -89,7 +90,7 @@ angular.module('devSigninController')
         $scope.showPlaceholderText = showPlaceholderText;
         
         var resetPocBtn = function() {
-            toggleOther();
+            togglePocOther();
             resetPlaceholderText();
         };
         
@@ -124,7 +125,7 @@ angular.module('devSigninController')
         };
         
         var resetPurposePlaceholderText = function() {
-            $scope.purposeplaceholderText = purposeplaceholderText;
+            $scope.purposePlaceholderText = purposePlaceholderText;
         };
         
         $scope.hidePurposePlaceholderText = hidePurposePlaceholderText;

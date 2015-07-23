@@ -12,42 +12,52 @@ Dev Technology eSignin README File
   Docker daemon should be running on EC2 instances.
   
 ## Pre-installation
-  To protect sensitive information, all keys(aws and encryption related keys) are set as environment variables.
+  --- Node Server env variables:
   
-  Save all env variables(all aws keys and key pair for mongo db encryption) to a file and pass it when the run script is invoked.
+    To protect sensitive information, all keys(aws and encryption related keys) are set as environment variables.
   
-  Follow Amazon AWS instruction for the S3 keys. 
-  Encryption keys can be generated using the following command.
+    Save all env variables(all aws keys and key pair for mongo db encryption) to a file and pass it when the run script is invoked.
+  
+    Follow Amazon AWS instruction for the S3 keys. 
+    Encryption keys can be generated using the following command.
   
     	openssl rand -base64 32; openssl rand -base64 64;
     	
-  Required Key/Values are EncryptionKey, SigningKey, and aws keys.
+    Required Key/Values are EncryptionKey, SigningKey, and aws keys.
+  
+  --- Mongo Server PEM file:
+  
+    MongoDB is connected via HTTPS and pem file is required when the db server is started. 
+    
+    Put mongodb.pem file to /etc/certs/.
 
 ## Build/Installation
   The installation consists of 3 sub installations.
   
-  1. server - 
-  
+  1. server
+  	Modify config/config.js.prod to replace 'prod_mongo_ip' with actual production mongo server ip address.
+  	
   	sudo runtime/script/build_docker_image.sh server prod/dev
-  2. mongo -
-  
+  	
+  2. mongo
   	sudo runtime/script/build_docker_image.sh mongo 
-  3. client -
-  
+  	
+  3. client
+    Modify public/js/config/config.js.prod to replace 'prod_api_server_ip' with actual production node.js server ip address.
+    Then, copy config.js.prod to config.js
+        
   	Follow instructions on http://www.nickdobie.com/blog/hosting-angularjs-with-amazon-s3/
   	
 ## Run
-  1. server - 
-  
+  1. server
   	sudo runtime/script/run_docker_image.sh server <env variable file path>
   	
-  2. mongo -
-  
+  2. mongo
   	sudo runtime/script/run_docker_image.sh mongo
   	
 ## Todo
 
-  * 
+  * Currently, esignin uses one source location which means the app doesn't care where the user logs in from.  
 
 ## License 
 

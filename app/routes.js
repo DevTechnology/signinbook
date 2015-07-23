@@ -3,6 +3,7 @@ var ObjectID = require('mongodb').ObjectID;
 var BSON = require('mongodb').BSON;
 var fs = require('fs');
 var async = require('async');
+var appRoot = process.cwd();
 
 function getEntries(res){
     Entry.find({}).sort('-date').exec(function(err, entries) {
@@ -15,7 +16,8 @@ function getEntries(res){
 };
 
 function getDevTechies(res){
-    fs.readFile('/opt/esigninApi/config/devTechies', 'utf8', function (err, data) {
+    
+    fs.readFile(appRoot + '/config/devTechies', 'utf8', function (err, data) {
         console.log(data);
         if (err) {
             res.send(err)
@@ -25,7 +27,7 @@ function getDevTechies(res){
 };
 
 function getPovs(res){
-    fs.readFile('/opt/esigninApi/config/purposeOfVisit', 'utf8', function (err, data) {
+    fs.readFile(appRoot + '/config/purposeOfVisit', 'utf8', function (err, data) {
         console.log(data);
         if (err) {
             res.send(err)
@@ -106,6 +108,7 @@ module.exports = function(app) {
 	});
 
 	// application -------------------------------------------------------------
+	// The following is for dev test
 	app.get('*', function(req, res) {
 		res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
 	});
