@@ -7,7 +7,7 @@ if [ -z "$1" ]
   elif [ "$1" == "server" ]
 	then
 	  tag="dtg/esignin-server"
-	  port=8080
+	  port=8443
 	  
 	  if [ -s "$2" ]
 	  	then
@@ -18,7 +18,7 @@ if [ -z "$1" ]
 	  fi
 	  
 	  #Execute the build
-	  sudo docker run -p $port:$port --env-file=$envFile -d $tag
+	  sudo docker run -p $port:$port -v /etc/certs:/certs --env-file=$envFile -d $tag
   elif [ "$1" == "mongo" ]
 	then		
 		tag="dtg/esignin-mongo"

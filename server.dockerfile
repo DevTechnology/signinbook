@@ -11,6 +11,6 @@ RUN npm -g update npm
 RUN npm install
 RUN npm install -g forever
 
-EXPOSE 8080
+EXPOSE 8443
 
 CMD forever /opt/esigninApi/server.js
