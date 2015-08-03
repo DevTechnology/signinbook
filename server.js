@@ -16,7 +16,13 @@ mongoose.connect(config.database_url); 	// connect to mongoDB database on modulu
 
 app.use(express.static(__dirname + '/public')); 		// set the static files location /public/img will be /img for users
 app.use(morgan('dev')); // log every request to the console
-app.use(cors());
+
+var corsOptions = {
+    origin: 'https://s3.amazonaws.com'
+};
+
+app.use(cors(corsOptions));
+
 app.use(bodyParser.urlencoded({'extended':'true'})); // parse application/x-www-form-urlencoded
 app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
@@ -30,7 +36,8 @@ require('./app/routes.js')(app);
 
 var options = {
         key: fs.readFileSync('/certs/server.key'),
-        cert: fs.readFileSync('/certs/server.crt')
+        cert: fs.readFileSync('/certs/server.crt'),
+        ca: fs.readFileSync('/certs/rootCA.pem')
 };
 
 // listen (start app with node server.js) ======================================
