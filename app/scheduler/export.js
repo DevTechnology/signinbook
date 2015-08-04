@@ -83,10 +83,11 @@ function getDailyReport() {
                 obj.timeIn = objToAdd.timeIn;
                 obj.timeOut = objToAdd.timeOut;
                 obj.purpose = objToAdd.purpose;
+                obj.ip = objToAdd.ip;
                 flattenedData.push(obj);
             }
             
-            var fields = ['fname', 'lname', 'company', 'poc', 'date', 'timeIn', 'timeOut', 'purpose'];
+            var fields = ['fname', 'lname', 'company', 'poc', 'date', 'timeIn', 'timeOut', 'purpose', 'ip'];
             json2csv({ data: flattenedData, fields: fields }, function(err, csv) {
                 if (err) console.log(err);
                 var tmpFilename = today.getFullYear() + "/" + (today.getMonth() + 1) + "/" + today.getDate() + '/signin_logbook.csv';

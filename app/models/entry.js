@@ -16,12 +16,13 @@ var entrySchema = new mongoose.Schema({
     date: Date,
     timeIn: Date,
     timeOut: Date,
-    purpose: String
+    purpose: String,
+    ip: String
 });
 
 var encKey = process.env.EncryptionKey;
 var sigKey = process.env.SigningKey;
 
-entrySchema.plugin(encrypt, { encryptionKey: encKey, signingKey: sigKey, excludeFromEncryption: ['date', 'timeIn', 'timeOut'] });
+entrySchema.plugin(encrypt, { encryptionKey: encKey, signingKey: sigKey, excludeFromEncryption: ['date', 'timeIn', 'timeOut', 'ip'] });
 
 module.exports = mongoose.model('Entry', entrySchema);

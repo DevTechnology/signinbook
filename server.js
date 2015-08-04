@@ -35,9 +35,9 @@ require('./app/scheduler/export.js');
 require('./app/routes.js')(app);
 
 var options = {
-        key: fs.readFileSync('/certs/server.key'),
-        cert: fs.readFileSync('/certs/server.crt'),
-        ca: fs.readFileSync('/certs/rootCA.pem')
+        key: fs.readFileSync('/etc/certs/server.key'),
+        cert: fs.readFileSync('/etc/certs/server.crt'),
+        ca: fs.readFileSync('/etc/certs/rootCA.pem')
 };
 
 // listen (start app with node server.js) ======================================

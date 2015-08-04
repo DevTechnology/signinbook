@@ -3,10 +3,15 @@ var ObjectID = require('mongodb').ObjectID;
 var BSON = require('mongodb').BSON;
 var fs = require('fs');
 var async = require('async');
+var ipaddr = require('ipaddr.js');
 var appRoot = process.cwd();
 
-function getEntries(res){
-    Entry.find({}).sort('-date').exec(function(err, entries) {
+function getEntries(req, res){
+    var clientIpStr = "" + ipaddr.process(req.ip);
+    var rangeIpArr = clientIpStr.split(".");
+    var rangeStr = '^' + rangeIpArr[0] + "\\." + rangeIpArr[1] + "\\." + rangeIpArr[2] + '.*';
+    
+    Entry.find({ip: new RegExp(rangeStr)}).sort('-date').exec(function(err, entries) {
 		// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 		if (err)
 			res.send(err)
@@ -42,7 +47,7 @@ module.exports = function(app) {
 	// get all entries
 	app.get('/api/entries', function(req, res) {
 		// use mongoose to get all entries in the database
-		getEntries(res);
+		getEntries(req, res);
 	});
 	
 	app.get('/api/devTechies', function(req, res) {
@@ -67,14 +72,14 @@ module.exports = function(app) {
 			timeIn : req.body.timeIn,
 			timeOut : req.body.timeOut,
 			purpose : req.body.purpose,
+			ip: ipaddr.process(req.ip),
 			done : false
 		}, function(err, entry) {
 			if (err)
 				res.send(err);
 			// get and return all the entries after you create another
-			getEntries(res);
+			getEntries(req, res);
 		});
-
 	});
 	
 	// update entries and send back all entries after creation
@@ -92,7 +97,7 @@ module.exports = function(app) {
             function (err, entry) {
                 if (err)
                     res.send(err);
-                getEntries(res);
+                getEntries(req, res);
             });
     });
 
@@ -103,7 +108,7 @@ module.exports = function(app) {
 		}, function(err, entries) {
 			if (err)
 				res.send(err);
-			getEntries(res);
+			getEntries(req, res);
 		});
 	});
 
