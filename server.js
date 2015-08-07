@@ -10,6 +10,7 @@ var methodOverride = require('method-override');
 var cors = require('cors')
 var https = require('https');
 var fs = require('fs');
+var logger = require('express-logger');
 
 // configuration ===============================================================
 mongoose.connect(config.database_url); 	// connect to mongoDB database on modulus.io
@@ -18,10 +19,12 @@ app.use(express.static(__dirname + '/public')); 		// set the static files locati
 app.use(morgan('dev')); // log every request to the console
 
 var corsOptions = {
-    origin: 'https://s3.amazonaws.com'
+    origin: ['https://s3.amazonaws.com', 'https://esignin.devtechnology.com.s3-website-us-east-1.amazonaws.com']
 };
 
 app.use(cors(corsOptions));
+
+app.use(logger({path: './logFile'}));
 
 app.use(bodyParser.urlencoded({'extended':'true'})); // parse application/x-www-form-urlencoded
 app.use(bodyParser.json()); // parse application/json

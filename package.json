@@ -21,6 +21,7 @@
     "json2csv": "~2.4.3",
     "aws-sdk" : "~2.1.39",
     "cors" : "~2.7.1",
-    "ipaddr.js" : "~1.0.1"
+    "ipaddr.js" : "~1.0.1",
+    "express-logger" : "~0.0.3"
   }
 }
