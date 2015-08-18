@@ -11,7 +11,8 @@ function getEntries(req, res){
     var rangeIpArr = clientIpStr.split(".");
     var rangeStr = '^' + rangeIpArr[0] + "\\." + rangeIpArr[1] + "\\." + rangeIpArr[2] + '.*';
     
-    Entry.find({ip: new RegExp(rangeStr)}).sort('-date').exec(function(err, entries) {
+    Entry.find({ip: new RegExp(rangeStr),
+                timeOut : {$exists : false} }).sort('-date').exec(function(err, entries) {
 		// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 		if (err)
 			res.send(err)
