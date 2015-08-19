@@ -74,13 +74,13 @@ body {
 				</thead>
 				<tbody>
 					<tr ng-repeat="entry in entries">
-						<td class="text-center">{{entry.fname}} {{entry.lname.substring(0,1)}}.</td>
-						<td class="text-center">{{entry.poc}}</td>
-						<td class="text-center">{{entry.date | date:'yyyy-MM-dd'}}</td>
-						<td class="text-center">{{entry.timeIn | date:'hh:mm:ss a'}}</td>
-						<td class="text-center" ng-show="entry.timeOut">{{entry.timeOut | date:'hh:mm:ss a'}}</td>
-						<td class="text-center" ng-show="!entry.timeOut" class="text-center">
-							<button class="btn btn-success btn-xs" ng-click="showSignoutPopup(entry)">Sign Out</button>
+						<td class="text-center vert-align">{{entry.fname}} {{entry.lname.substring(0,1)}}.</td>
+						<td class="text-center vert-align">{{entry.poc}}</td>
+						<td class="text-center vert-align">{{entry.date | date:'yyyy-MM-dd'}}</td>
+						<td class="text-center vert-align">{{entry.timeIn | date:'hh:mm:ss a'}}</td>
+						<td class="text-center vert-align" ng-show="entry.timeOut">{{entry.timeOut | date:'hh:mm:ss a'}}</td>
+						<td class="text-center vert-align" ng-show="!entry.timeOut">
+							<button class="btn btn-success btn" ng-click="showSignoutPopup(entry)">Sign Out</button>
 						</td>
 					</tr>
 				</tbody>

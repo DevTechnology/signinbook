@@ -1,3 +1,7 @@
 .custom {
     width: 100px !important;
 }
+
+.table tbody>tr>td.vert-align{
+    vertical-align: middle;
+}
